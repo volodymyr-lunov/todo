@@ -1,5 +1,6 @@
 package com.vlunov.todo.views
 
+import android.content.Intent
 import android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +33,7 @@ class TodoLstAdapter (
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val item = todos[position];
+        val context = holder.itemView.context
         val textView = holder.itemView.findViewById<TextView>(R.id.todoListItemTextTxt);
         val checkbox = holder.itemView.findViewById<CheckBox>(R.id.todoListItemCheckCkx);
 
@@ -39,6 +41,11 @@ class TodoLstAdapter (
         checkbox.isChecked = item.isDone;
 
         toggleStrikeThrough(textView, item.isDone)
+
+        holder.itemView.setOnClickListener {
+            context.startActivity(Intent(context, ViewTodoActivity::class.java)
+                .putExtra("id", item.id))
+        }
 
         checkbox.setOnCheckedChangeListener {_, isChecked ->
             toggleStrikeThrough(textView, isChecked)

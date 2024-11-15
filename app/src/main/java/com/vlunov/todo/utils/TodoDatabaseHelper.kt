@@ -39,6 +39,25 @@ class TodoDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_
         }
     }
 
+    fun getOneById(id: Int): TodoItem? {
+        val query = "SELECT * FROM $TABLE_NAME WHERE $COLUMN_ID = $id"
+        val db = readableDatabase
+        val cursor = db.rawQuery(query, null)
+        var item: TodoItem? = null;
+        cursor.use {
+            if (cursor.moveToFirst()) {
+                var id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID))
+                val title = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TITLE))
+                val desc = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DESC))
+                val dueDate = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DUE_DATE))
+                val isDone = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_IS_DONE)) == 1
+                item = TodoItem(title, desc, dueDate, isDone, id)
+            }
+        }
+        db.close()
+        return item;
+    }
+
     fun getAllTodos(): MutableList<TodoItem> {
         val todoList = mutableListOf<TodoItem>()
         val query = "SELECT * FROM $TABLE_NAME"
