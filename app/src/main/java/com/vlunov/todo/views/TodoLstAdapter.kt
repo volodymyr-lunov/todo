@@ -1,17 +1,18 @@
 package com.vlunov.todo.views
 
-import android.content.Intent
 import android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.vlunov.todo.R
 import com.vlunov.todo.models.TodoItem
 
 class TodoLstAdapter (
+    private val frame: Fragment,
     private val onCheckedChanged: (Boolean) -> Unit
 ) : RecyclerView.Adapter<TodoLstAdapter.TodoViewHolder> () {
     private val todos = mutableListOf<TodoItem>()
@@ -32,19 +33,21 @@ class TodoLstAdapter (
     }
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
-        val item = todos[position];
-        val context = holder.itemView.context
-        val textView = holder.itemView.findViewById<TextView>(R.id.todoListItemTextTxt);
-        val checkbox = holder.itemView.findViewById<CheckBox>(R.id.todoListItemCheckCkx);
+        val item = todos[position]
+        val textView = holder.itemView.findViewById<TextView>(R.id.todoListItemTextTxt)
+        val checkbox = holder.itemView.findViewById<CheckBox>(R.id.todoListItemCheckCkx)
 
-        textView.text = item.title;
-        checkbox.isChecked = item.isDone;
+        textView.text = item.title
+        checkbox.isChecked = item.isDone
 
         toggleStrikeThrough(textView, item.isDone)
 
         holder.itemView.setOnClickListener {
-            context.startActivity(Intent(context, ViewTodoActivity::class.java)
-                .putExtra("id", item.id))
+            val fragment = ViewTodoActivityFragment.newInstance(item.id!!)
+
+            frame.requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null).commit()
         }
 
         checkbox.setOnCheckedChangeListener {_, isChecked ->
@@ -52,16 +55,11 @@ class TodoLstAdapter (
             checkbox.isChecked = isChecked
             item.isDone = isChecked
 
-            println("isChecked $isChecked")
-
             if (isChecked) {
                 checkedItems.add(item)
             } else {
-                val isDeleted = checkedItems.remove(item)
-                println("isDeleted $isDeleted")
+                checkedItems.remove(item)
             }
-
-            println("checkedItems size ${checkedItems.size}")
 
             onCheckedChanged(checkedItems.isNotEmpty())
         }

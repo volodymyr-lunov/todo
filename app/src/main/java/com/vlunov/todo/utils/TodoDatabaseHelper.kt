@@ -79,13 +79,13 @@ class TodoDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_
         return todoList
     }
 
-    fun updateTodo(id: Long, todo: TodoItem): Int {
+    fun updateTodo(id: Int?, todo: TodoItem?): Int {
         val db = writableDatabase
         val values = ContentValues().apply {
-            put(COLUMN_TITLE, todo.title)
-            put(COLUMN_DESC, todo.desc)
-            put(COLUMN_DUE_DATE, todo.dueDate)
-            put(COLUMN_IS_DONE, if (todo.isDone) 1 else 0)
+            put(COLUMN_TITLE, todo?.title)
+            put(COLUMN_DESC, todo?.desc)
+            put(COLUMN_DUE_DATE, todo?.dueDate)
+            put(COLUMN_IS_DONE, if (todo!!.isDone) 1 else 0)
         }
         return db.update(TABLE_NAME, values, "$COLUMN_ID = ?", arrayOf(id.toString())).also {
             db.close()

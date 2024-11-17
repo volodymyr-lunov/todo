@@ -16,12 +16,16 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
         _todoList.value = dbHelper.getAllTodos()
     }
 
+    fun getTodoById(id: Int): TodoItem? {
+        return dbHelper.getOneById(id)
+    }
+
     fun deleteItemsByIDs(ids: List<Int?>) {
         dbHelper.deleteAllByIDs(ids)
         loadTodos()
     }
 
-    fun updateTodoItem(id: Long, updatedTodo: TodoItem) {
+    fun updateTodoItem(id: Int?, updatedTodo: TodoItem?) {
         dbHelper.updateTodo(id, updatedTodo)
         loadTodos()
     }
