@@ -1,7 +1,8 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    id("io.realm.kotlin") version "3.0.0"
+    id("com.android.application")
+    kotlin("android")
+    kotlin("kapt")
+    id("realm-android")
 }
 
 android {
@@ -37,7 +38,6 @@ android {
 }
 
 dependencies {
-    implementation("io.realm.kotlin:library-base:3.0.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -46,4 +46,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation("io.realm:realm-android-library:10.19.0")
 }

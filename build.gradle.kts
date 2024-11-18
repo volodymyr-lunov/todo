@@ -3,3 +3,8 @@ plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
 }
+buildscript {
+    dependencies {
+        classpath("io.realm:realm-gradle-plugin:10.19.0")
+    }
+}

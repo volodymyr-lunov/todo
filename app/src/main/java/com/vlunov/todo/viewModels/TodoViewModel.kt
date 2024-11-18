@@ -5,33 +5,28 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.vlunov.todo.models.TodoItem
-import com.vlunov.todo.utils.TodoDatabaseHelper
+import com.vlunov.todo.utils.TodoRepository
 
 class TodoViewModel(application: Application) : AndroidViewModel(application) {
-    private val dbHelper = TodoDatabaseHelper(application)
+    private val repository = TodoRepository()
     private val _todoList = MutableLiveData<List<TodoItem>>()
     val todoList: LiveData<List<TodoItem>> get() = _todoList
 
     fun loadTodos() {
-        _todoList.value = dbHelper.getAllTodos()
+        _todoList.value = repository.getAllTodoItems()
     }
 
-    fun getTodoById(id: Int): TodoItem? {
-        return dbHelper.getOneById(id)
+    fun getTodoById(id: String): TodoItem? {
+        return repository.getTodoItemById(id)
     }
 
-    fun deleteItemsByIDs(ids: List<Int?>) {
-        dbHelper.deleteAllByIDs(ids)
+    fun deleteItemsByIDs(ids: List<String?>) {
+        repository.deleteAllByIds(ids)
         loadTodos()
     }
 
-    fun updateTodoItem(id: Int?, updatedTodo: TodoItem?) {
-        dbHelper.updateTodo(id, updatedTodo)
-        loadTodos()
-    }
-
-    fun updateMultipleTodos(items: List<Pair<Long, TodoItem>>) {
-        dbHelper.updateAllByIDs(items)
+    fun updateTodoItem(id: String?, updatedFields: (TodoItem) -> Unit) {
+        repository.updateTodoItem(id, updatedFields)
         loadTodos()
     }
 }

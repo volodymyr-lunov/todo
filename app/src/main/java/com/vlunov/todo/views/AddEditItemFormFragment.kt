@@ -14,15 +14,10 @@ import androidx.fragment.app.Fragment
 import com.vlunov.todo.R
 import com.vlunov.todo.models.TodoItem
 import com.vlunov.todo.utils.DateTimePicker;
-import com.vlunov.todo.utils.TodoDatabaseHelper
+import com.vlunov.todo.utils.TodoRepository
 
 class AddEditItemFormFragment : Fragment() {
-    private lateinit var dbHelper: TodoDatabaseHelper
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        dbHelper = TodoDatabaseHelper(context)
-    }
+    private var repository: TodoRepository = TodoRepository()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,7 +46,7 @@ class AddEditItemFormFragment : Fragment() {
         }
 
         createBtn.setOnClickListener {
-            dbHelper.insertTodo(TodoItem(
+            repository.insertTodoItem(TodoItem(
                 title = titleFld.text.toString(),
                 desc = descFld.text.toString(),
                 dueDate = dueDateFld.text.toString(),

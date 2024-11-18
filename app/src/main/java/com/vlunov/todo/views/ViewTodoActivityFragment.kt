@@ -11,12 +11,12 @@ import com.vlunov.todo.R
 import com.vlunov.todo.viewModels.TodoViewModel
 
 class ViewTodoActivityFragment: Fragment() {
-    private var todoId: Int? = null
+    private var todoId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            todoId = it.getInt(ARG_TODO_ID)
+            todoId = it.getString(ARG_TODO_ID)
         }
     }
 
@@ -42,9 +42,9 @@ class ViewTodoActivityFragment: Fragment() {
     companion object {
         private const val ARG_TODO_ID = "todo_id"
 
-        fun newInstance(todoId: Int) = ViewTodoActivityFragment().apply {
+        fun newInstance(todoId: String) = ViewTodoActivityFragment().apply {
             arguments = Bundle().apply {
-                putInt(ARG_TODO_ID, todoId)
+                putString(ARG_TODO_ID, todoId)
             }
         }
     }
