@@ -18,28 +18,21 @@ class DateTimePicker(private val field: EditText?) {
     }
 
     private fun showDatePicker(context: Context, cb: (() -> Unit)? = null) {
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
-
         val datePickerDialog = DatePickerDialog(
             context,
             { _, year, monthOfYear, dayOfMonth ->
                 field?.setText("$dayOfMonth-${monthOfYear + 1}-$year")
                 cb?.invoke()
             },
-            year,
-            month,
-            day
+            c.get(Calendar.YEAR),
+            c.get(Calendar.MONTH),
+            c.get(Calendar.DAY_OF_MONTH)
         )
 
         datePickerDialog.show()
     }
 
     private fun showTimePicker(context: Context, cb: (() -> Unit)? = null) {
-        val hour = c.get(Calendar.HOUR_OF_DAY)
-        val minute = c.get(Calendar.MINUTE)
-
         val timePickerDialog = TimePickerDialog(
             context,
             { _, hourOfDay, minute ->
@@ -47,8 +40,8 @@ class DateTimePicker(private val field: EditText?) {
                 field?.setText("$dateStr $hourOfDay:$minute")
                 cb?.invoke()
             },
-            hour,
-            minute,
+            c.get(Calendar.HOUR_OF_DAY),
+            c.get(Calendar.MINUTE),
             false
         )
 
