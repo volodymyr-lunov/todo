@@ -11,4 +11,13 @@ open class TodoItem(
     var desc: String = "",
     var dueDate: String = "",
     var isDone: Boolean = false
-) : RealmObject()
+) : RealmObject() {
+    fun copy() : TodoItem {
+        return TodoItem(
+            title = this.title,
+            desc = this.desc,
+            dueDate = this.dueDate,
+            isDone = this.isDone
+        )
+    }
+}

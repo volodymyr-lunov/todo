@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.vlunov.todo.R
 import com.vlunov.todo.viewModels.TodoViewModel
 
@@ -43,6 +45,8 @@ class TodoListFragment : Fragment() {
 
         viewModel.loadTodos()
 
+        setUpItemTouchHelper(listView)
+
         addBtn.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, AddEditItemFormFragment())
@@ -56,5 +60,35 @@ class TodoListFragment : Fragment() {
         }
 
         return view
+    }
+
+    private fun setUpItemTouchHelper(recyclerView: RecyclerView) {
+        val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val itemToDelete = adapter.getItemAtPosition(position)
+                val newItem = itemToDelete.copy()
+
+                adapter.removeItemAt(position)
+                viewModel.deleteItemByID(itemToDelete.id ?: return)
+
+                Snackbar.make(recyclerView, "Item deleted", Snackbar.LENGTH_LONG).setAction("Undo") {
+                    adapter.addItemAt(position, newItem)
+                    viewModel.addTodoItem(newItem)
+
+                    recyclerView.scrollToPosition(position)
+                }.show()
+            }
+        })
+
+        itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 }

@@ -16,12 +16,22 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
         _todoList.value = repository.getAllTodoItems()
     }
 
+    fun addTodoItem(item: TodoItem) {
+        repository.insertTodoItem(item)
+        loadTodos()
+    }
+
     fun getTodoById(id: String): TodoItem? {
         return repository.getTodoItemById(id)
     }
 
     fun deleteItemsByIDs(ids: List<String?>) {
         repository.deleteAllByIds(ids)
+        loadTodos()
+    }
+
+    fun deleteItemByID(id: String) {
+        repository.deleteTodoItemById(id)
         loadTodos()
     }
 

@@ -38,7 +38,7 @@ class TodoRepository {
     }
 
 
-    fun deleteTodoItemById(id: Int) {
+    fun deleteTodoItemById(id: String) {
         realm.executeTransaction {
             it.where<TodoItem>().equalTo("id", id).findFirst()?.deleteFromRealm()
         }

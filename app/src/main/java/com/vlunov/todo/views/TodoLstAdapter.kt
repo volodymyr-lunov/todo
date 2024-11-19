@@ -35,10 +35,10 @@ class TodoLstAdapter (
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val item = todos[position]
         val textView = holder.itemView.findViewById<TextView>(R.id.todoListItemTextTxt)
-        val checkbox = holder.itemView.findViewById<CheckBox>(R.id.todoListItemCheckCkx)
+        //val checkbox = holder.itemView.findViewById<CheckBox>(R.id.todoListItemCheckCkx)
 
         textView.text = item.title
-        checkbox.isChecked = item.isDone
+        //checkbox.isChecked = item.isDone
 
         toggleStrikeThrough(textView, item.isDone)
 
@@ -50,7 +50,7 @@ class TodoLstAdapter (
                 .addToBackStack(null).commit()
         }
 
-        checkbox.setOnCheckedChangeListener {_, isChecked ->
+        /*checkbox.setOnCheckedChangeListener {_, isChecked ->
             toggleStrikeThrough(textView, isChecked)
             checkbox.isChecked = isChecked
             item.isDone = isChecked
@@ -62,8 +62,22 @@ class TodoLstAdapter (
             }
 
             onCheckedChanged(checkedItems.isNotEmpty())
-        }
+        }*/
     };
+
+    fun removeItemAt(position: Int) {
+        todos.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
+    fun addItemAt(position: Int, item: TodoItem) {
+        todos.add(position, item)
+        notifyItemInserted(position)
+    }
+
+    fun getItemAtPosition(position: Int): TodoItem {
+        return todos[position]
+    }
 
     override fun getItemCount(): Int {
         return todos.size
