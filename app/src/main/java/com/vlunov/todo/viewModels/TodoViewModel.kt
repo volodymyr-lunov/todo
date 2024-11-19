@@ -17,8 +17,12 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun addTodoItem(item: TodoItem) {
+        addTodoItem(item, true)
+    }
+
+    fun addTodoItem(item: TodoItem, reload: Boolean) {
         repository.insertTodoItem(item)
-        loadTodos()
+        if (reload) loadTodos()
     }
 
     fun getTodoById(id: String): TodoItem? {
@@ -30,9 +34,13 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
         loadTodos()
     }
 
-    fun deleteItemByID(id: String) {
+    fun deleteItemByID(id: String, reload: Boolean) {
         repository.deleteTodoItemById(id)
-        loadTodos()
+        if (reload) loadTodos()
+    }
+
+    fun deleteItemByID(id: String) {
+        deleteItemByID(id, true)
     }
 
     fun updateTodoItem(id: String?, updatedFields: (TodoItem) -> Unit) {

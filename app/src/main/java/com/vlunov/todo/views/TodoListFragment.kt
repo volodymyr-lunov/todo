@@ -78,11 +78,11 @@ class TodoListFragment : Fragment() {
                 val newItem = itemToDelete.copy()
 
                 adapter.removeItemAt(position)
-                viewModel.deleteItemByID(itemToDelete.id ?: return)
+                viewModel.deleteItemByID(itemToDelete.id)
 
                 Snackbar.make(recyclerView, "Item deleted", Snackbar.LENGTH_LONG).setAction("Undo") {
                     adapter.addItemAt(position, newItem)
-                    viewModel.addTodoItem(newItem)
+                    viewModel.addTodoItem(newItem, false)
 
                     recyclerView.scrollToPosition(position)
                 }.show()

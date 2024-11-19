@@ -4,7 +4,6 @@ import android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -35,10 +34,8 @@ class TodoLstAdapter (
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val item = todos[position]
         val textView = holder.itemView.findViewById<TextView>(R.id.todoListItemTextTxt)
-        //val checkbox = holder.itemView.findViewById<CheckBox>(R.id.todoListItemCheckCkx)
 
         textView.text = item.title
-        //checkbox.isChecked = item.isDone
 
         toggleStrikeThrough(textView, item.isDone)
 
@@ -49,30 +46,24 @@ class TodoLstAdapter (
                 .replace(R.id.fragment_container, fragment)
                 .addToBackStack(null).commit()
         }
-
-        /*checkbox.setOnCheckedChangeListener {_, isChecked ->
-            toggleStrikeThrough(textView, isChecked)
-            checkbox.isChecked = isChecked
-            item.isDone = isChecked
-
-            if (isChecked) {
-                checkedItems.add(item)
-            } else {
-                checkedItems.remove(item)
-            }
-
-            onCheckedChanged(checkedItems.isNotEmpty())
-        }*/
     };
 
     fun removeItemAt(position: Int) {
+        removeItemAt(position, true)
+    }
+
+    fun removeItemAt(position: Int, notify: Boolean) {
         todos.removeAt(position)
-        notifyItemRemoved(position)
+        if (notify) notifyItemRemoved(position)
     }
 
     fun addItemAt(position: Int, item: TodoItem) {
+        addItemAt(position, item, true)
+    }
+
+    fun addItemAt(position: Int, item: TodoItem, notify: Boolean) {
         todos.add(position, item)
-        notifyItemInserted(position)
+        if (notify) notifyItemInserted(position)
     }
 
     fun getItemAtPosition(position: Int): TodoItem {
