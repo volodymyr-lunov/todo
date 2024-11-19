@@ -2,6 +2,7 @@ package com.vlunov.todo.utils
 
 import com.vlunov.todo.models.TodoItem
 import io.realm.Realm
+import io.realm.Sort
 import io.realm.kotlin.where
 
 class TodoRepository {
@@ -14,7 +15,7 @@ class TodoRepository {
     }
 
     fun getAllTodoItems(): List<TodoItem> {
-        return realm.where<TodoItem>().findAll().toList()
+        return realm.where<TodoItem>().findAll().sort("createDate", Sort.DESCENDING).toList()
     }
 
     fun getTodoItemById(id: String): TodoItem? {

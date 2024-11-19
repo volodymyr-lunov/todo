@@ -1,6 +1,5 @@
 package com.vlunov.todo.views
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +14,9 @@ import com.vlunov.todo.R
 import com.vlunov.todo.models.TodoItem
 import com.vlunov.todo.utils.DateTimePicker;
 import com.vlunov.todo.utils.TodoRepository
+import java.util.Calendar
 
-class AddEditItemFormFragment : Fragment() {
+class AddItemFormFragment : Fragment() {
     private var repository: TodoRepository = TodoRepository()
 
     override fun onCreateView(
@@ -46,10 +46,13 @@ class AddEditItemFormFragment : Fragment() {
         }
 
         createBtn.setOnClickListener {
+            val dueDate = if (dueDateFld.text.isNotEmpty()) TodoItem.parseDate(dueDateFld.text.toString()) else null
+
             repository.insertTodoItem(TodoItem(
                 title = titleFld.text.toString(),
                 desc = descFld.text.toString(),
-                dueDate = dueDateFld.text.toString(),
+                dueDate = dueDate,
+                createDate = TodoItem.formatDate(Calendar.getInstance().getTime()),
                 isDone = false
             ))
 

@@ -34,7 +34,7 @@ class ViewTodoActivityFragment: Fragment() {
 
         titleView.setText(item?.title)
         descView.setText(item?.desc)
-        dueDateView.setText(item?.dueDate)
+        dueDateView.setText(item?.dueDate.toString())
 
         return view
     }

@@ -49,7 +49,7 @@ class TodoListFragment : Fragment() {
 
         addBtn.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, AddEditItemFormFragment())
+                .replace(R.id.fragment_container, AddItemFormFragment())
                 .addToBackStack(null)
                 .commit()
         }
