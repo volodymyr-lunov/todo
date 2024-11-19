@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.Visibility
 import com.vlunov.todo.R
 import com.vlunov.todo.viewModels.TodoViewModel
 
@@ -33,8 +34,14 @@ class ViewTodoActivityFragment: Fragment() {
         val dueDateView: TextView = view.findViewById(R.id.viewTodoDueDateText)
 
         titleView.setText(item?.title)
-        descView.setText(item?.desc)
-        dueDateView.setText(item?.dueDate.toString())
+        if (item!!.desc.isNotEmpty()) {
+            descView.setText(item?.desc)
+            descView.visibility = View.VISIBLE
+        }
+        if (item?.dueDate != null) {
+            dueDateView.setText(item?.dueDate.toString())
+            dueDateView.visibility = View.VISIBLE
+        }
 
         return view
     }

@@ -1,35 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/add_edit"
-    android:padding="15dp">
+    style="@style/FormLayoutStyle">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/addEditItemTitleFld"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:ems="10"
+            style="@style/EditTextStyle"
             android:hint="Title"
-            android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/addEditItemDescFld"
-            android:layout_width="wrap_content"
-            android:layout_height="300dp"
-            android:ems="10"
-            android:gravity="start|top"
+            style="@style/EditTextStyle"
             android:hint="Note"
+            android:gravity="start|top"
             android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,22 +32,17 @@
 
         <EditText
             android:id="@+id/addEditItemDateDueFld"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:focusable="false"
+            style="@style/EditTextStyle"
             android:hint="Due date"
-            android:inputType="date"
+            android:focusable="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addEditItemDescFld" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/addEditItemCreateBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/ButtonStyle"
         android:text="Create"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"

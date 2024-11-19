@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,6 +30,8 @@ class TodoListFragment : Fragment() {
         val listView: RecyclerView = view.findViewById(R.id.todoListItemsLst)
         val addBtn: FloatingActionButton = view.findViewById(R.id.todoListAddBtn)
         val delBtn: FloatingActionButton = view.findViewById(R.id.todoListDelBtn)
+
+        listView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
         viewModel = ViewModelProvider(this).get(TodoViewModel::class.java)
 
