@@ -24,6 +24,7 @@
             android:id="@+id/addEditItemDescFld"
             style="@style/EditTextStyle"
             android:hint="Note"
+            android:layout_height="300dp"
             android:gravity="start|top"
             android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"

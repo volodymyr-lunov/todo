@@ -29,7 +29,6 @@ class TodoListFragment : Fragment() {
 
         val listView: RecyclerView = view.findViewById(R.id.todoListItemsLst)
         val addBtn: FloatingActionButton = view.findViewById(R.id.todoListAddBtn)
-        val delBtn: FloatingActionButton = view.findViewById(R.id.todoListDelBtn)
 
         listView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
@@ -39,9 +38,7 @@ class TodoListFragment : Fragment() {
             adapter.updateData(todos)
         }
 
-        adapter = TodoLstAdapter(this) { isChecked ->
-            delBtn.visibility = if (isChecked) View.VISIBLE else View.GONE
-        }
+        adapter = TodoLstAdapter(this)
 
         listView.adapter = adapter
         listView.layoutManager = LinearLayoutManager(context)
@@ -55,11 +52,6 @@ class TodoListFragment : Fragment() {
                 .replace(R.id.fragment_container, AddItemFormFragment())
                 .addToBackStack(null)
                 .commit()
-        }
-
-        delBtn.setOnClickListener {
-            delBtn.visibility = View.GONE
-            viewModel.deleteItemsByIDs(adapter.getChechedItems().map { it.id }.toList())
         }
 
         return view

@@ -10,10 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.vlunov.todo.R
 import com.vlunov.todo.models.TodoItem
 
-class TodoLstAdapter (
-    private val frame: Fragment,
-    private val onCheckedChanged: (Boolean) -> Unit
-) : RecyclerView.Adapter<TodoLstAdapter.TodoViewHolder> () {
+class TodoLstAdapter (private val frame: Fragment) : RecyclerView.Adapter<TodoLstAdapter.TodoViewHolder> () {
     private val todos = mutableListOf<TodoItem>()
     private val checkedItems = mutableSetOf<TodoItem>()
 

@@ -1,12 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="ListLayoutStyle">
+        <item name="android:padding">20dp</item>
+        <item name="android:background">#F8F9FA</item> <!-- Light background -->
+    </style>
+
+    <style name="RecyclerViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:background">#FFFFFF</item> <!-- White background for content -->
+        <item name="android:clipToPadding">false</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="FABStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:tint">#FFFFFF</item> <!-- White icon color -->
+        <item name="android:backgroundTint">#007BFF</item> <!-- Primary color -->
+        <item name="android:elevation">6dp</item> <!-- Add shadow -->
+    </style>
+
     <style name="FormLayoutStyle">
         <item name="android:padding">20dp</item>
         <item name="android:background">#F8F9FA</item>
     </style>
 
     <style name="EditTextStyle">
-        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">10dp</item>
         <item name="android:background">@drawable/edit_text_bg</item> <!-- Custom rounded background -->
@@ -16,7 +38,7 @@
     </style>
 
     <style name="ButtonStyle">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">12dp</item>
         <item name="android:textSize">16sp</item>
